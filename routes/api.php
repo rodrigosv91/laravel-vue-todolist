@@ -21,14 +21,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) { // aut
 
 Route::get('/items', [ItemController::class, 'index']); 
 
-// Route::middleware('api')->group(function () {                // automatic routes for all default resources
+// Route::middleware('api')->group(function () {                // automatic routes for ALL  default resources
 //    Route::resource('items', ItemController::class);
 // }); 
 
-Route::prefix('/item')->group( function () { 
+Route::prefix('/item')->group( function () {                 
         Route::post('/store', [ItemController::class, 'store']); // item/store
         Route::put('/{id}', [ItemController::class, 'update']); // item/{id} // {id} = parameter
         Route::delete('/{id}', [ItemController::class, 'destroy']);  
     }   
-);
+);   // acess to only few ItemController resources
 

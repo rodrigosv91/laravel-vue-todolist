@@ -2,9 +2,15 @@
     <div class="todoListContainer">
         <div class="heading">
             <h2 id="title">Todo List</h2>
-            <add-item-form />          
+            <add-item-form 
+                v-on:reloadlist="getList()"
+                />          
         </div>
-        <list-view />
+        <list-view 
+            :items="items" 
+            v-on:reloadlist="getList()"
+            /> 
+            <!-- could use vue State Management -->
     </div>
 </template>
 
@@ -18,6 +24,25 @@ export default {
     components:{
         addItemForm,
         listView
+    },
+    data: function () {
+        return{
+            items: []
+        }
+    },
+    methods:{
+        getList () {                        //metodo que retorna items
+            axios.get('api/items')          //acessa metodo index via api com axios
+            .then( response =>{             //lida com resposta
+                this.items = response.data;  //atribui a this.item -> response.data (axios server response (metodo index() em api)) 
+            })
+            .catch(error => {
+                console.log( error );       // lida com erro
+            })
+        }
+    },
+    created(){                              //em life cycle "created"
+        this.getList();                     //aciona metodo getList()
     }
 }
 </script>
@@ -28,13 +53,13 @@ export default {
     margin: auto;
 }
 
-.heading{
+.heading {
     background: #e6e6e6;
     padding: 10px;
 
 }
 
-#title{
+#title {
     text-align: center;
 }
 
