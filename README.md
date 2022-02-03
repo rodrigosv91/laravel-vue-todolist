@@ -8,7 +8,7 @@ Simple TodoList app built using Laravel and Vue JS.
 
 * `composer install`
 * `npm install`
-* `cp .env.exmaple .env`
+* `copy .env.example .env`
 * `php artisan key:generate`
 * Edit `.env` and put database and other credentials 
 * `php artisan migrate`
